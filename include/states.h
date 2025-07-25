@@ -9,12 +9,12 @@ typedef struct {
     char* stdout;             // Stores the standard output of the executed command
     char* stderr;             // Stores the standard error of the executed command
     int exit_code;            // Stores the exit code of the executed command
-} state;
+} state_type;
 
 char* extend_messages(char* message, const char* addition);
 
 void free_string(char* ptr);
 
-state init_default_state();
+state_type init_default_state(state_type state);
 
 #endif
