@@ -1,4 +1,5 @@
-
+#ifndef CONFIG_H
+#define CONFIG_H
 // Model configs
 #define DEFAULT_MODEL_PATH "./models/"
 #define N_GPU_LAYERS 4
@@ -23,6 +24,7 @@
                         If user didn't ask for doing anything with there linux OS only chat normally.\n"
 
 // Tools configs
+#define MAX_CODE_LENGTH 256
 #define MAX_STDOUT_LENGTH 256
 #define MAX_STDERR_LENGTH 256
 #define MAX_SEARCH_QUERY_LENGTH 256
@@ -30,3 +32,5 @@
 // Special tokens
 #define search_request_token "search_request"
 #define run_command_token "shell_command"
+
+#endif
