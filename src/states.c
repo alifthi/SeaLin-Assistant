@@ -49,3 +49,14 @@ char* extend_messages(char* main_string, const char* addition){
         strcat(new_string, addition);
     return new_string;
 }
+
+/*
+    * Safely frees a pointer and sets it to NULL
+    @param ptr: Pointer 
+*/
+void free_ptr(char* ptr){
+    if(ptr){
+        free(ptr);
+        ptr = NULL;
+    }
+}

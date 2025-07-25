@@ -13,7 +13,7 @@ typedef struct {
 
 char* extend_messages(char* main_string, const char* addition);
 
-void free_string(char* ptr);
+void free_ptr(char* ptr);
 
 state_type init_default_state(state_type state);
 
