@@ -11,7 +11,7 @@ typedef struct {
     int exit_code;            // Stores the exit code of the executed command
 } state_type;
 
-char* extend_messages(char* message, const char* addition);
+char* extend_messages(char* main_string, const char* addition);
 
 void free_string(char* ptr);
 
