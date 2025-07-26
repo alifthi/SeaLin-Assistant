@@ -108,3 +108,44 @@ int free_llama_inference(llama_inference* inference){
     
     return 0;
 }
+
+/*
+    * Runing inference
+    * @param inference: A llama_inference object
+*/
+int run_inference(llama_inference* inference){
+     struct llama_batch batch = llama_batch_get_one(inference->prompt_tokens, inference->n_prompt);
+
+    uint64_t t_main_start = ggml_time_us();
+    int n_decode = 0;
+    llama_token new_token_id;
+    for (int n_pos = 0; n_pos + batch.n_tokens < inference->n_prompt + MAX_MESSAGE_LENGTH; ) {
+        if (llama_decode(inference->ctx, batch)) {
+            fprintf(stderr, "[Error] Failed to evaluate batch\n");
+            return 1;
+        }
+        
+        n_pos += batch.n_tokens;
+        
+        new_token_id = llama_sampler_sample(inference->smplr, inference->ctx, -1);
+
+        if (llama_vocab_is_eog(inference->vocab, new_token_id)) {
+            break;
+        }
+
+        char buf[128];
+        int n = llama_token_to_piece(inference->vocab, new_token_id, buf, sizeof(buf), 0, true);
+        if (n < 0) {
+            fprintf(stderr, "[Error] Failed to convert token to piece\n");
+            return 1;
+        }
+        printf("%.*s", n, buf);
+        fflush(stdout);
+        
+        batch = llama_batch_get_one(&new_token_id, 1);
+        
+        n_decode += 1;
+    }
+
+    printf("\n");
+}
