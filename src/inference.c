@@ -74,3 +74,24 @@ int create_ctx(llama_inference* inference){
     }
     return 0;
 }
+
+/*
+    * Unallocates llama_inference object
+    * @param inference: A llama_inference object
+*/
+int free_llama_inference(llama_inference* inference){
+    
+    if(!inference->model==NULL)
+        llama_free_model(inference->model);
+
+    if (!inference->smplr == NULL)
+        llama_sampler_free(inference->smplr);
+
+    if (!inference->ctx == NULL)
+        llama_free(inference->ctx);
+
+    if (!inference->prompt_tokens == NULL)
+        free(inference->prompt_tokens);
+    
+    return 0;
+}
