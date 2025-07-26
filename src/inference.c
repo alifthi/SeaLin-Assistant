@@ -2,6 +2,8 @@
 #include "inference.h"
 #include "states.h"
 #include "config.h"
+
+
 /*
     * loading ggml backend
 */
@@ -93,18 +95,29 @@ int set_sampler(llama_inference* inference){
     * @param inference: A llama_inference object
 */
 int free_llama_inference(llama_inference* inference){
-    
-    if(!inference->model==NULL)
+    if (inference == NULL) {
+        return 0;
+    }
+
+    if (inference->model != NULL) {
         llama_free_model(inference->model);
+        inference->model = NULL;
+    }
 
-    if (!inference->smplr == NULL)
+    if (inference->smplr != NULL) {
         llama_sampler_free(inference->smplr);
+        inference->smplr = NULL;
+    }
 
-    if (!inference->ctx == NULL)
+    if (inference->ctx != NULL) {
         llama_free(inference->ctx);
+        inference->ctx = NULL;
+    }
 
-    if (!inference->prompt_tokens == NULL)
+    if (inference->prompt_tokens != NULL) {
         free(inference->prompt_tokens);
+        inference->prompt_tokens = NULL;
+    }
     
     return 0;
 }

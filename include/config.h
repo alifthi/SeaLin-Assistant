@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 // Model configs
-#define DEFAULT_MODEL_PATH "./models/"
+#define DEFAULT_MODEL_PATH "./models/Qwen3-Embedding-0.6B-f16.gguf"
 #define N_GPU_LAYERS 4
 
 // Prompt configs
