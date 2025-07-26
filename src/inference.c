@@ -21,7 +21,7 @@ int load_model(char *path, llama_inference *inference){
 
     inference->model = llama_model_load_from_file(path, model_params);
     if(inference->model == NULL){
-        printf("[Error] Faild to load model %s", path);
+        fprintf(stderr,"[Error] Faild to load model %s\n", path);
         return 1;
     }
     return 0;
@@ -35,7 +35,23 @@ int load_model(char *path, llama_inference *inference){
 int get_vocab(llama_inference *inference){
     inference->vocab = llama_model_get_vocab(inference->model);
     if(inference->vocab == NULL){
-        printf("[Error] Faild to load vocab");
+        fprintf(stderr,"[Error] Faild to load vocab\n");
+        return 1;
+    }
+    return 0;
+}
+
+/*
+    * allocate prompt_tokens
+    @param inference: inference object.
+    @param state: state object.
+    @return: returns 0 if tokenization was succeed.
+*/
+int allocate_prompt(llama_inference* inference, state_type* state){
+    inference->n_prompt = -llama_tokenize(inference->vocab, state->messages, strlen(state->messages), NULL, 0, true, true);
+    inference->prompt_tokens = (llama_token *)malloc(inference->n_prompt * sizeof(llama_token));
+    if (llama_tokenize(inference->vocab, state->messages, strlen(state->messages), inference->prompt_tokens, inference->n_prompt, true, true) < 0) {
+        fprintf(stderr, "[Error] Failed to tokenize the prompt\n");
         return 1;
     }
     return 0;

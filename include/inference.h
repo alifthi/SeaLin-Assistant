@@ -17,6 +17,7 @@ typedef struct
     llama_model_forwarded* model;
     llama_context_fowarded* ctx;
     llama_vocab_forwarded* vocab;
+    llama_tokens_forwarded* prompt_tokens;
     int n_prompt;
 }llama_inference;
 
@@ -28,9 +29,6 @@ int load_model(char *path, llama_inference* inference);
 
 // To get vocab
 int get_vocab(llama_inference* inference);
-
-// To get number of tokens in a prompt
-int get_num_tokens(llama_inference* inference, state_type* state);
 
 // Allocate a memory to prompt
 int allocate_prompt(llama_inference* inference, state_type* state);
