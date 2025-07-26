@@ -42,7 +42,7 @@ int create_ctx(llama_inference* inference);
 int set_sampler(llama_inference* inference);
 
 // Run inference
-int run_inference(llama_inference* inference, state_type state);
+int run_inference(llama_inference* inference);
 
 // Unallocate memory 
 int free_llama_inference(llama_inference* inference);
