@@ -10,6 +10,7 @@ typedef struct llama_model llama_model_forwarded;
 typedef struct llama_vocab llama_vocab_forwarded;
 typedef struct llama_context llama_context_fowarded;
 typedef struct llama_tokens llama_tokens_forwarded;
+typedef struct llama_sampler llama_sampler_forwarded;
 
 // llama_inference type contains any variable related to llamacpp
 typedef struct 
@@ -18,8 +19,9 @@ typedef struct
     llama_context_fowarded* ctx;
     llama_vocab_forwarded* vocab;
     llama_tokens_forwarded* prompt_tokens;
+    llama_sampler_forwarded* smplr;
     int n_prompt;
-}llama_inference;
+} llama_inference;
 
 // To load llama cpp backend
 void load_backend();
