@@ -38,6 +38,9 @@ int allocate_prompt(llama_inference* inference, state_type* state);
 // Create a llama context
 int create_ctx(llama_inference* inference);
 
+// Set sampler
+int set_sampler(llama_inference* inference);
+
 // Unallocate memory 
 int free_llama_inference(llama_inference* inference);
 
