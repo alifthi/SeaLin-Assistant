@@ -26,3 +26,17 @@ int load_model(char *path, llama_inference *inference){
     }
     return 0;
 }
+
+/*
+    * Loading vocab
+    @param inference: inference object.
+    @return: returns 0 if load was succeed
+*/
+int get_vocab(llama_inference *inference){
+    inference->vocab = llama_model_get_vocab(inference->model);
+    if(inference->vocab == NULL){
+        printf("[Error] Faild to load vocab");
+        return 1;
+    }
+    return 0;
+}
