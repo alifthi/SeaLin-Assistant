@@ -13,8 +13,8 @@ typedef struct {
 
 char* extend_messages(char* main_string, const char* addition);
 
-void free_ptr(char* ptr);
+void free_ptr(state_type* state);
 
-state_type init_default_state(state_type state);
+int init_default_state(state_type* state);
 
 #endif

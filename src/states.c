@@ -9,17 +9,17 @@
     * @param state: Input state
     * @return: Initialized state
 */
-state_type init_default_state(state_type state){
-    state.messages = NULL;
-    state.search_query = NULL;
-    state.shell_command = NULL;
-    state.stderr = NULL;
-    state.stdout = NULL;
-    state.exit_code = NULL;
+int init_default_state(state_type* state){
+    state->messages = NULL;
+    state->search_query = NULL;
+    state->shell_command = NULL;
+    state->stderr = NULL;
+    state->stdout = NULL;
+    state->exit_code = NULL;
 
-    state.messages = extend_messages(state.messages, SYSTEM_PROMPT); 
+    state->messages = extend_messages(state->messages, SYSTEM_PROMPT); 
     
-    return state;
+    return 1;
 }
 
 /*
@@ -54,9 +54,40 @@ char* extend_messages(char* main_string, const char* addition){
     * Safely frees a pointer and sets it to NULL
     @param ptr: Pointer 
 */
-void free_ptr(char* ptr){
-    if(ptr){
-        free(ptr);
-        ptr = NULL;
+void free_ptr(state_type* state){
+    if (state == NULL) {
+        return 0;
     }
+
+    if (state->messages != NULL) {
+        free(state->messages);
+        state->messages = NULL;
+    }
+
+    if (state->exit_code != NULL) {
+        free(state->exit_code);
+        state->exit_code = NULL;
+    }
+
+    if (state->search_query != NULL) {
+        llama_free(state->search_query);
+        state->search_query = NULL;
+    }
+
+    if (state->shell_command != NULL) {
+        free(state->shell_command);
+        state->shell_command = NULL;
+    }
+    
+    if (state->stderr != NULL) {
+        free(state->stderr);
+        state->stderr = NULL;
+    }
+    
+    if (state->stdout != NULL) {
+        free(state->stdout);
+        state->stdout = NULL;
+    }
+    
+    
 }
