@@ -12,6 +12,15 @@ void load_backend(){
 }
 
 /*
+    * To silent ggml logs
+*/
+void silent_log_callback(enum ggml_log_level level, const char * text, void * user_data) {
+    (void)level;
+    (void)text;
+    (void)user_data;
+}
+
+/*
     * Loading model
     * @param path: The path of model.
     * @param inference: inference object.
@@ -20,7 +29,9 @@ void load_backend(){
 int load_model(char *path, llama_inference *inference){
     struct llama_model_params model_params = llama_model_default_params();
     model_params.n_gpu_layers = N_GPU_LAYERS;
-
+    
+   
+    llama_log_set(silent_log_callback, NULL);
     inference->model = llama_model_load_from_file(path, model_params);
     if(inference->model == NULL){
         fprintf(stderr,"[Error] Faild to load model %s\n", path);

@@ -47,4 +47,6 @@ int run_inference(llama_inference* inference);
 // Unallocate memory 
 int free_llama_inference(llama_inference* inference);
 
+// silenses ggml logs
+void silent_log_callback(enum ggml_log_level level, const char * text, void * user_data)
 #endif
