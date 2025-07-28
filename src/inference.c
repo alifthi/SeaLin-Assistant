@@ -62,8 +62,9 @@ int get_vocab(llama_inference *inference){
 */
 int allocate_prompt(llama_inference* inference, state_type* state){
     inference->n_prompt = -llama_tokenize(inference->vocab, state->messages, strlen(state->messages), NULL, 0, true, true);
-    inference->prompt_tokens = (llama_token *)malloc(inference->n_prompt * sizeof(llama_token));
-    if (llama_tokenize(inference->vocab, state->messages, strlen(state->messages), inference->prompt_tokens, inference->n_prompt, true, true) < 0) {
+    inference->prompt_tokens = malloc(inference->n_prompt * sizeof(llama_token));
+    if (llama_tokenize(inference->vocab, state->messages, strlen(state->messages),
+                       inference->prompt_tokens, inference->n_prompt, true, true) < 0) {
         fprintf(stderr, "[Error] Failed to tokenize the prompt\n");
         return 1;
     }
@@ -111,7 +112,7 @@ int free_llama_inference(llama_inference* inference){
     }
 
     if (inference->model != NULL) {
-        llama_free_model(inference->model);
+        llama_model_free(inference->model);
         inference->model = NULL;
     }
 
@@ -140,7 +141,6 @@ int free_llama_inference(llama_inference* inference){
 int run_inference(llama_inference* inference){
      struct llama_batch batch = llama_batch_get_one(inference->prompt_tokens, inference->n_prompt);
 
-    uint64_t t_main_start = ggml_time_us();
     int n_decode = 0;
     llama_token new_token_id;
     for (int n_pos = 0; n_pos + batch.n_tokens < inference->n_prompt + MAX_MESSAGE_LENGTH; ) {
@@ -172,4 +172,5 @@ int run_inference(llama_inference* inference){
     }
 
     printf("\n");
+    return 0;
 }

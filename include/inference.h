@@ -3,22 +3,24 @@
 
 #include "config.h"
 #include "states.h"
+#include <stdlib.h>
 #include <string.h> 
+#include <stdint.h>
 
 // Forwarding types
 typedef struct llama_model llama_model_forwarded;
 typedef struct llama_vocab llama_vocab_forwarded;
 typedef struct llama_context llama_context_fowarded;
-typedef struct llama_tokens llama_tokens_forwarded;
 typedef struct llama_sampler llama_sampler_forwarded;
-
+typedef int32_t llama_token;
+enum ggml_log_level;
 // llama_inference type contains any variable related to llamacpp
 typedef struct 
 {
     llama_model_forwarded* model;
     llama_context_fowarded* ctx;
-    llama_vocab_forwarded* vocab;
-    llama_tokens_forwarded* prompt_tokens;
+    const llama_vocab_forwarded* vocab;
+    llama_token* prompt_tokens;
     llama_sampler_forwarded* smplr;
     int n_prompt;
 } llama_inference;
@@ -48,5 +50,6 @@ int run_inference(llama_inference* inference);
 int free_llama_inference(llama_inference* inference);
 
 // silenses ggml logs
-void silent_log_callback(enum ggml_log_level level, const char * text, void * user_data)
+void silent_log_callback(enum ggml_log_level level, const char * text, void * user_data);
+
 #endif

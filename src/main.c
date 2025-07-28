@@ -52,8 +52,8 @@ int main(){
         free_llama_inference(&inference);
         return 1;
     }
+
     free_ptr(&state);
-    printf(state.messages);
     free_llama_inference(&inference);
     return 0;
 }

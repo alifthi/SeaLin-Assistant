@@ -2,7 +2,7 @@
 #include "config.h"
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 
 /*
     * Initializes astate structure with default values
@@ -15,7 +15,6 @@ int init_default_state(state_type* state){
     state->shell_command = NULL;
     state->stderr = NULL;
     state->stdout = NULL;
-    state->exit_code = NULL;
 
     state->messages = extend_messages(state->messages, SYSTEM_PROMPT); 
     
@@ -56,7 +55,7 @@ char* extend_messages(char* main_string, const char* addition){
 */
 void free_ptr(state_type* state){
     if (state == NULL) {
-        return 0;
+        return ;
     }
 
     if (state->messages != NULL) {
@@ -64,13 +63,8 @@ void free_ptr(state_type* state){
         state->messages = NULL;
     }
 
-    if (state->exit_code != NULL) {
-        free(state->exit_code);
-        state->exit_code = NULL;
-    }
-
     if (state->search_query != NULL) {
-        llama_free(state->search_query);
+        free(state->search_query);
         state->search_query = NULL;
     }
 
