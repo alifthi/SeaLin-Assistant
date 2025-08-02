@@ -21,7 +21,7 @@
                         After that you generate the search_request you must provide the search query like follow:\n\
                         ```query \n<your search query>\n'''\n\
                         If you need to search about your code or search about what user asked use this tool.\n\
-                        If user didn't ask for doing anything with there linux OS only chat normally.\n<|im_end|> \n<|im_start|>user Hello <|im_end|>\n<|im_start|>assistant"
+                        If user didn't ask for doing anything with there linux OS only chat normally.\n<|im_end|>\n"
 
 // Tools configs
 #define MAX_CODE_LENGTH 256
