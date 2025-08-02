@@ -72,13 +72,29 @@ int allocate_prompt(llama_inference* inference, state_type* state){
 }
 
 /*
+    * Check if context needs to be recreated based on current requirements
+    * @param inference: Inference object
+    * @return: 1 if context needs recreation, 0 if current context is sufficient
+*/
+int needs_ctx_recreation(llama_inference* inference) {
+    if (inference->ctx == NULL) {
+        return 1; 
+    }
+    
+    int required_ctx_size = inference->n_prompt + MAX_MESSAGE_LENGTH;
+    int current_ctx_size = llama_n_ctx(inference->ctx);
+    
+    return (current_ctx_size < required_ctx_size);
+}
+
+/*
     * Initialization of llama contex
     * @param inference: Inference object. 
 */
 int create_ctx(llama_inference* inference){
     struct llama_context_params ctx_params = llama_context_default_params();
-    ctx_params.n_ctx = inference->n_prompt + MAX_MESSAGE_LENGTH - 1;
-    ctx_params.n_batch = inference->n_prompt;
+    ctx_params.n_ctx = MAX_MESSAGE_LENGTH/4; 
+    ctx_params.n_batch = 1024; 
     ctx_params.no_perf = false;
 
     inference->ctx = llama_init_from_model(inference->model, ctx_params);

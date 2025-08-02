@@ -56,11 +56,6 @@ int main(){
             free_llama_inference(&inference);
             return 1;
         }
-        res = create_ctx(&inference);
-        if(res){
-            free_llama_inference(&inference);
-            return 1;
-        }
         
         res = run_inference(&inference);
         if(res){
