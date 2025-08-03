@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#include "utils.h"
+#include "console.h"
 
 char* get_user_prompt(char* input_string){
     char *line = NULL;

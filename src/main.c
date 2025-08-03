@@ -4,7 +4,7 @@
 #include "config.h"
 #include "states.h"
 #include "inference.h"
-#include "utils.h"
+#include "console.h"
 
 int main(){
     llama_inference inference;
