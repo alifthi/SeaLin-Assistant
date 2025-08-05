@@ -10,4 +10,4 @@ typedef struct {
 
 
 int run_subprocess(char* file_name, output_type* out);
-int read_console(char* store_var, int fd);
+int read_console(char **store_var, int fd);

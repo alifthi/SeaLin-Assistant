@@ -25,8 +25,7 @@
 
 // Tools configs
 #define MAX_CODE_LENGTH 256
-#define MAX_STDOUT_LENGTH 256
-#define MAX_STDERR_LENGTH 256
+#define MAX_OUT_CODE_LENGTH 256
 #define MAX_SEARCH_QUERY_LENGTH 256
 
 // Special tokens

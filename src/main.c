@@ -8,6 +8,7 @@
 #include "shell.h"
 
 int main(){
+    output_type cmd_out;
     llama_inference inference;
     state_type state;
     char *user_prompt;
