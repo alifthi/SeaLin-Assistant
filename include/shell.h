@@ -1,3 +1,6 @@
+#ifndef SHELL_H
+#define SHELL_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/wait.h> 
@@ -11,3 +14,4 @@ typedef struct {
 
 int run_subprocess(char* file_name, output_type* out);
 int read_console(char **store_var, int fd);
+#endif
