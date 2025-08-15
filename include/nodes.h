@@ -3,7 +3,8 @@
 
 #include "states.h"
 
-int decide_next_node(state_type state);
+char* decide_next_node(state_type state);
+char* split(const char* main_string, const char* needle);
 int inference_node(state_type state);
 int search_node(state_type state);
 int prepare_cmd(state_type* state);
