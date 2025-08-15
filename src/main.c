@@ -6,13 +6,14 @@
 #include "inference.h"
 #include "console.h"
 #include "shell.h"
+#include "nodes.h"
 
 int main(){
     output_type cmd_out;
     llama_inference inference;
     state_type state;
     char *user_prompt;
-
+    char assistant_response[1024];
     memset(&inference, 0, sizeof(llama_inference));
     memset(&state, 0, sizeof(state_type));
 
@@ -59,7 +60,8 @@ int main(){
             return 1;
         }
         
-        res = run_inference(&inference);
+        res = run_inference(&inference, &assistant_response);
+        printf(assistant_response);
         if(res){
             free_llama_inference(&inference);
             return 1;
