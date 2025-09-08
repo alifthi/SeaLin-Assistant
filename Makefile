@@ -5,14 +5,14 @@ LDFLAGS = -Wl,-rpath,./vendor/lib
 
 SRC_DIR = src
 INCLUDE_DIR = include
-VENDOR_INCLUDE_DIR = vendor/include
-VENDOR_LIB_DIR = vendor/lib
+VENDOR_INCLUDE_DIR = vendor/llama.cpp
+VENDOR_LIB_DIR = vendor/llama.cpp/build/bin
 BUILD_DIR = build
 OBJ_DIR = $(BUILD_DIR)/obj
 
-INCLUDES = -I$(INCLUDE_DIR) -I$(VENDOR_INCLUDE_DIR) -I$(VENDOR_INCLUDE_DIR)/llama -I$(VENDOR_INCLUDE_DIR)/ggml
+INCLUDES = -I$(INCLUDE_DIR) -I$(VENDOR_INCLUDE_DIR) -I$(VENDOR_INCLUDE_DIR)/include -I$(VENDOR_INCLUDE_DIR)/ggml/include
 
-LIBS = -L$(VENDOR_LIB_DIR) -lllama -lggml -lggml-base -lggml-cpu -lmtmd -lm -lpthread
+LIBS = -L$(VENDOR_LIB_DIR) -lllama -lggml -lm -lpthread
 
 SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -27,12 +27,14 @@ $(BUILD_DIR):
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(TARGET): $(OBJECTS) | $(BUILD_DIR)
+$(TARGET): vendor/llama.cpp/build/bin/libllama.so $(OBJECTS) | $(BUILD_DIR)
 	$(CC) $(OBJECTS) -o $@ $(LDFLAGS) $(LIBS)
 	@echo "Build complete: $@"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+vendor/llama.cpp/build/bin/libllama.so:
+	cd vendor/llama.cpp && mkdir -p build && cd build && cmake .. && make -j4
 
 clean:
 	rm -rf $(BUILD_DIR)

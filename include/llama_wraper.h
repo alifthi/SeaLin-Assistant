@@ -6,8 +6,8 @@
 #ifndef LLAMA_WRAPPER_H
 #define LLAMA_WRAPPER_H
 
-#include "../vendor/include/ggml/ggml.h"
-#include "../vendor/include/llama/llama.h"
+#include "ggml.h"
+#include "llama.h"
 
 #define LLAMA_WRAPPER_VERSION "1.0.0"
 
