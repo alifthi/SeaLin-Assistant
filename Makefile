@@ -1,7 +1,7 @@
 PROJECT_NAME = SeaLin-Assistant
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -O2 -g
-LDFLAGS = -Wl,-rpath,./vendor/lib
+LDFLAGS = -Wl,-rpath,./vendor/llama.cpp/build/bin
 
 SRC_DIR = src
 INCLUDE_DIR = include
