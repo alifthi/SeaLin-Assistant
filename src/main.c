@@ -61,6 +61,7 @@ int main(){
         }
         
         res = run_inference(&inference, &assistant_response);
+
         printf(assistant_response);
         if(res){
             free_llama_inference(&inference);

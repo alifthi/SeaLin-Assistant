@@ -1,6 +1,10 @@
 #include "nodes.h"
 
-
+/*
+    * Choosing next node
+    * @param state: Graph state
+    * @return: An string that tells what the next node is
+*/
 char* decide_next_node(state_type state){
     char* splited = split(state.messages, "<|im_start|>assistant");
     if(splited){
