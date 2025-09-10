@@ -23,24 +23,36 @@ int main(){
     int res = load_model(DEFAULT_MODEL_PATH, &inference);
     
     if(res){
+        free(assistant_response);
+        free(user_prompt);
+        free_ptr(&state);
         free_llama_inference(&inference);
         return 1;
     }
     
     res = get_vocab(&inference);
     if(res){
+        free(assistant_response);
+        free(user_prompt);
+        free_ptr(&state);
         free_llama_inference(&inference);
         return 1;
     }
 
     res = create_ctx(&inference);
     if(res){
+        free(assistant_response);
+        free(user_prompt);
+        free_ptr(&state);
         free_llama_inference(&inference);
         return 1;
     }
     
     res = set_sampler(&inference);
     if(res){
+        free(assistant_response);
+        free(user_prompt);
+        free_ptr(&state);
         free_llama_inference(&inference);
         return 1;
     }
@@ -54,21 +66,17 @@ int main(){
         state.messages = extend_messages(state.messages, "<|im_start|>user\n");
         user_prompt = extend_messages(user_prompt, "<|im_end|>\n<|im_start|>assistant");
         state.messages = extend_messages(state.messages, user_prompt);
-        res = allocate_prompt(&inference, &state);
+        // Calling graph
         if(res){
+            free(user_prompt);
+            free(assistant_response);
+            free_ptr(&state);
             free_llama_inference(&inference);
             return 1;
         }
-        
-        res = run_inference(&inference, &assistant_response);
-
         printf(assistant_response);
-        if(res){
-            free_llama_inference(&inference);
-            return 1;
-        }
     }
-     
+    free(assistant_response);
     free(user_prompt);
     free_ptr(&state);
     free_llama_inference(&inference);

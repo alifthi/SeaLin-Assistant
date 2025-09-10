@@ -1,4 +1,5 @@
 #include "nodes.h"
+#include "inference.h"
 
 /*
     * Choosing next node
@@ -11,6 +12,23 @@ char* decide_next_node(state_type state){
         return "continue";
     }
     return splited;
+}
+
+/*
+    * Invoke model.
+    * @param state: Graph state.
+    * @param inference: llama_inference pointer.
+    * @param assistant_response: To store the assistant response.
+    * @return: An int that shows inference was successful.
+*/
+int inference_node(state_type *state, llama_inference *inference, char *assistant_response){
+    int res = allocate_prompt(&inference, &state);
+        if(res)
+            return 1;
+    res = run_inference(&inference, &assistant_response);
+    if(res)
+        return 1;
+    return 0;
 }
 
 char* split(const char* haystack, const char* needle) {
