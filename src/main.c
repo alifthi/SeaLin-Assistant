@@ -14,7 +14,6 @@ int main(){
     llama_inference inference;
     state_type state;
     char *user_prompt;
-    char assistant_response[1024];
     memset(&inference, 0, sizeof(llama_inference));
     memset(&state, 0, sizeof(state_type));
 
@@ -24,7 +23,6 @@ int main(){
     int res = load_model(DEFAULT_MODEL_PATH, &inference);
     
     if(res){
-        free(assistant_response);
         free(user_prompt);
         free_ptr(&state);
         free_llama_inference(&inference);
@@ -33,7 +31,6 @@ int main(){
     
     res = get_vocab(&inference);
     if(res){
-        free(assistant_response);
         free(user_prompt);
         free_ptr(&state);
         free_llama_inference(&inference);
@@ -42,7 +39,6 @@ int main(){
 
     res = create_ctx(&inference);
     if(res){
-        free(assistant_response);
         free(user_prompt);
         free_ptr(&state);
         free_llama_inference(&inference);
@@ -51,7 +47,6 @@ int main(){
     
     res = set_sampler(&inference);
     if(res){
-        free(assistant_response);
         free(user_prompt);
         free_ptr(&state);
         free_llama_inference(&inference);
@@ -68,18 +63,15 @@ int main(){
         user_prompt = extend_messages(user_prompt, "<|im_end|>\n<|im_start|>assistant");
         state.messages = extend_messages(state.messages, user_prompt);
 
-        res = run_graph(&state, &inference);
+        // res = run_graph(&state, &inference);
         // Calling graph
         if(res){
             free(user_prompt);
-            free(assistant_response);
             free_ptr(&state);
             free_llama_inference(&inference);
             return 1;
         }
-        printf(assistant_response);
     }
-    free(assistant_response);
     free(user_prompt);
     free_ptr(&state);
     free_llama_inference(&inference);
