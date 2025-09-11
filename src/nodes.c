@@ -21,11 +21,11 @@ char* decide_next_node(state_type state){
     * @param assistant_response: To store the assistant response.
     * @return: An int that shows inference was successful.
 */
-int inference_node(state_type *state, llama_inference *inference, char *assistant_response){
+int inference_node(state_type *state, llama_inference *inference){
     int res = allocate_prompt(&inference, &state);
         if(res)
             return 1;
-    res = run_inference(&inference, &assistant_response);
+    res = run_inference(&inference, &state->assistant_response);
     if(res)
         return 1;
     return 0;

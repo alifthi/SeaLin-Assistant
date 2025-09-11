@@ -4,6 +4,7 @@
 #include "config.h"
 typedef struct {
     char* messages;           // Message contains user, system, assistant and tool messages
+    char* assistant_response; // Stores assistant response
     char* search_query;       // Stores the search query
     char* shell_command;      // Stores the shell command to be executed
     char* stdout;             // Stores the standard output of the executed command
