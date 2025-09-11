@@ -7,6 +7,7 @@
 #include "console.h"
 #include "shell.h"
 #include "nodes.h"
+#include "graph.h"
 
 int main(){
     output_type cmd_out;
@@ -66,6 +67,8 @@ int main(){
         state.messages = extend_messages(state.messages, "<|im_start|>user\n");
         user_prompt = extend_messages(user_prompt, "<|im_end|>\n<|im_start|>assistant");
         state.messages = extend_messages(state.messages, user_prompt);
+
+        res = run_graph(&state, &inference);
         // Calling graph
         if(res){
             free(user_prompt);
