@@ -31,6 +31,12 @@ int inference_node(state_type *state, llama_inference *inference, char *assistan
     return 0;
 }
 
+/*
+    * Finds the last occurrence of needle in haystack.
+    * @param haystack: The main string.
+    * @param needle.
+    * @return: The last occurrence of needle.
+*/
 char* split(const char* haystack, const char* needle) {
     char *result;
     char *p = strstr(haystack, needle);
