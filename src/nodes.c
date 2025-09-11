@@ -1,6 +1,5 @@
 #include "nodes.h"
 #include "inference.h"
-
 /*
     * Choosing next node
     * @param state: Graph state
