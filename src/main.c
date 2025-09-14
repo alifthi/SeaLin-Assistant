@@ -36,7 +36,6 @@ int main(){
         free_llama_inference(&inference);
         return 1;
     }
-
     res = create_ctx(&inference);
     if(res){
         free(user_prompt);
@@ -62,8 +61,7 @@ int main(){
         state.messages = extend_messages(state.messages, "<|im_start|>user\n");
         user_prompt = extend_messages(user_prompt, "<|im_end|>\n<|im_start|>assistant");
         state.messages = extend_messages(state.messages, user_prompt);
-
-        // res = run_graph(&state, &inference);
+        res = run_graph(&state, &inference);
         // Calling graph
         if(res){
             free(user_prompt);

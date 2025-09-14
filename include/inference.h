@@ -47,7 +47,7 @@ int needs_ctx_recreation(llama_inference* inference);
 int set_sampler(llama_inference* inference);
 
 // Run inference
-int run_inference(llama_inference* inference, char* assistant_response);
+int run_inference(llama_inference* inference, state_type* state);
 
 // Unallocate memory 
 int free_llama_inference(llama_inference* inference);
