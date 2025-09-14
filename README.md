@@ -35,18 +35,20 @@ The project uses the following libraries (included in `vendor/`):
 
 ## Installation
 
-### 1. Clone the Repository
+### 1. Download a GGUF model under ./models
+
+### 2. Clone the Repository
 ```bash
 git clone https://github.com/alifthi/SeaLin-Assistant
 cd SeaLin-Assistant
 ```
 
-### 2. Build the Project
+### 3. Build the Project
 ```bash
 make
 ```
 
-### 3. Install System-wide (Optional)
+### 4. Install System-wide (Optional)
 ```bash
 make install
 ```
