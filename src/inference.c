@@ -29,8 +29,6 @@ void silent_log_callback(enum ggml_log_level level, const char * text, void * us
 int load_model(char *path, llama_inference *inference){
     struct llama_model_params model_params = llama_model_default_params();
     model_params.n_gpu_layers = N_GPU_LAYERS;
-    
-   
     llama_log_set(silent_log_callback, NULL);
     inference->model = llama_model_load_from_file(path, model_params);
     if(inference->model == NULL){
@@ -93,8 +91,9 @@ int needs_ctx_recreation(llama_inference* inference) {
 */
 int create_ctx(llama_inference* inference){
     struct llama_context_params ctx_params = llama_context_default_params();
-    ctx_params.n_ctx = MAX_MESSAGE_LENGTH/4; 
-    ctx_params.n_batch = 1024; 
+    ctx_params.n_ctx = N_CTX; 
+    ctx_params.n_batch = N_BATCH; 
+    ctx_params.n_threads = N_THREADS;
     ctx_params.no_perf = false;
 
     inference->ctx = llama_init_from_model(inference->model, ctx_params);
