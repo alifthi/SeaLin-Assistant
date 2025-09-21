@@ -161,7 +161,7 @@ int run_inference(llama_inference* inference, state_type* state) {
      
     int n_decode = 0;
     llama_token new_token_id;
-
+    state->assistant_response[0] = '\0';
     for (int n_pos = 0; n_pos + batch.n_tokens < inference->n_prompt + MAX_MESSAGE_LENGTH; ) {
         if (llama_decode(inference->ctx, batch)) {
             fprintf(stderr, "[Error] Failed to evaluate batch\n");
