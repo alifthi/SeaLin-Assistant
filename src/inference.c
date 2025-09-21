@@ -180,9 +180,8 @@ int run_inference(llama_inference* inference, state_type* state) {
             return 1;
         }
         if (prompt_len + n < max_len - 1) {
-            memcpy(state->assistant_response + prompt_len, buf, n);
+            strncat(state->assistant_response, buf,n);
             prompt_len += n;
-            state->assistant_response[prompt_len] = '\0'; 
         } else {
             fprintf(stderr, "[Warning] assistant_response buffer full, truncating.\n");
             break;
@@ -192,7 +191,6 @@ int run_inference(llama_inference* inference, state_type* state) {
         batch = llama_batch_get_one(&new_token_id, 1);   
         n_decode++;
     }
-
     printf("\n");
     return 0;
 }

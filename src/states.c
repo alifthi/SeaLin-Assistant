@@ -17,6 +17,7 @@ int init_default_state(state_type* state){
     state->stdout = NULL;
 
     state->messages = extend_messages(state->messages, SYSTEM_PROMPT); 
+    state->assistant_response[0] = '\0';
     
     return 1;
 }
