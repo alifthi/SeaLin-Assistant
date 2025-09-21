@@ -6,12 +6,15 @@
     * @return: An string that tells what the next node is
 */
 char* decide_next_node(state_type state){
-    char* splited = split(state.messages, "<|im_start|>assistant");
-    if(splited){
-        return "continue";
+    char* splited = split(state.assistant_response, "</think>");
+    printf(splited);
+    if(strstr(splited, "shell_command") != NULL)
+        return "shell_node";
+    else if(strstr(splited, "search_request") != NULL)
+        return "search_node";
+    else
+        return "nothing";
     }
-    return splited;
-}
 
 /*
     * Invoke model.
