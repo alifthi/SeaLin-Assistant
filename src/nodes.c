@@ -38,14 +38,9 @@ int inference_node(state_type *state, llama_inference *inference){
     * @return: returns 0 if it was successful.
 */
 int prepare_cmd(state_type *state){
-    char* splited = split(state->assistant_response, "</think>",-1);
-
-    char* temp = split(splited, "```bash",-1);
-    splited = temp;
-    temp = split(splited, "```", 0);
-    splited = temp;
-    state->shell_command = splited;
-    free(splited);
+    state->shell_command = split(state->assistant_response, "</think>",-1);
+    state->shell_command = split(state->shell_command, "```bash",-1);
+    state->shell_command = split(state->shell_command, "```", 0);
     return 0;
 }
 
