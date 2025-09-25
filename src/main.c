@@ -14,6 +14,7 @@ int main(){
     llama_inference inference;
     state_type state;
     char *user_prompt;
+
     memset(&inference, 0, sizeof(llama_inference));
     memset(&state, 0, sizeof(state_type));
 
@@ -61,7 +62,7 @@ int main(){
         state.messages = extend_messages(state.messages, "<|im_start|>user\n");
         user_prompt = extend_messages(user_prompt, "<|im_end|>\n<|im_start|>assistant");
         state.messages = extend_messages(state.messages, user_prompt);
-        res = run_graph(&state, &inference);
+        res = run_graph(&state, &inference, &cmd_out);
         if(res){
             free(user_prompt);
             free_ptr(&state);
