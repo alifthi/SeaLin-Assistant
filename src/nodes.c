@@ -41,12 +41,11 @@ int prepare_cmd(state_type *state){
     char* splited = split(state->assistant_response, "</think>",-1);
 
     char* temp = split(splited, "```bash",-1);
-    free(splited);
     splited = temp;
     temp = split(splited, "```", 0);
-    free(splited);
     splited = temp;
-    
+    state->shell_command = splited;
+    free(splited);
     return 0;
 }
 
