@@ -1,5 +1,7 @@
 #include "nodes.h"
 #include "inference.h"
+#include "shell.h"
+
 /*
     * Choosing next node
     * @param state: Graph state
@@ -31,6 +33,29 @@ int inference_node(state_type *state, llama_inference *inference){
         return 1;
     return 0;
 }
+
+/*
+    * Run a shell command on users machine.
+    * @param state: Graph state.
+    * @return: An int that shows inference was successful.
+*/
+int shell_node(state_type *state,output_type *out){
+    FILE *fp;
+    char filename[50];
+    srand(time(NULL));
+    int r = rand() % 100000;
+    snprintf(filename, sizeof(filename), "file_%d.txt", r);
+    fp = fopen(filename, "w");
+    if (fp == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+    fprintf(fp, "%s", state->shell_command);
+    fclose(fp);
+    printf(filename);
+    return 0;
+}
+
 
 /*
     * Preparing command and store in state->shell_command.
