@@ -41,10 +41,12 @@ int inference_node(state_type *state, llama_inference *inference){
 */
 int shell_node(state_type *state,output_type *out){
     FILE *fp;
-    char filename[50];
+    char *filename;
+    filename = malloc(128);
+
     srand(time(NULL));
     int r = rand() % 100000;
-    snprintf(filename, sizeof(filename), "file_%d.txt", r);
+    snprintf(filename, sizeof(filename), "file_%d.sh", r);
     fp = fopen(filename, "w");
     if (fp == NULL) {
         perror("Error opening file");
@@ -52,7 +54,8 @@ int shell_node(state_type *state,output_type *out){
     }
     fprintf(fp, "%s", state->shell_command);
     fclose(fp);
-    printf(filename);
+    run_subprocess(filename, out);
+    // printf("here %s ", out->std_out);
     return 0;
 }
 
