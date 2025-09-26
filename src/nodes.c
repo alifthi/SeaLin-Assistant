@@ -55,7 +55,7 @@ int shell_node(state_type *state,output_type *out){
     fprintf(fp, "%s", state->shell_command);
     fclose(fp);
     run_subprocess(filename, out);
-    // printf("here %s ", out->std_out);
+    remove(filename);
     return 0;
 }
 

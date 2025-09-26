@@ -6,6 +6,9 @@
 #include "config.h"
 #include "shell.h"
 
+/*
+
+*/
 int run_subprocess(char* file_name, output_type* out){
     char cmd[512];
     snprintf(cmd, sizeof(cmd), "bash %s", file_name);
