@@ -6,7 +6,7 @@
 char* get_user_prompt(char* input_string){
     char *line = NULL;
     size_t len = 0;
-    printf("->");
+    printf("\033[1;34m->\033[0m ");
     if (getline(&line, &len, stdin) == -1) {
         free(line);
         return NULL;

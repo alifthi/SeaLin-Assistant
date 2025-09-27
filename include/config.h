@@ -2,10 +2,10 @@
 #define CONFIG_H
 // Model configs
 #define DEFAULT_MODEL_PATH "./models/Qwen3-4B-Thinking-2507-F16.gguf"
-#define N_GPU_LAYERS 128
+#define N_GPU_LAYERS 35
 #define N_THREADS 8
 #define N_BATCH 1024
-#define N_CTX 2048
+#define N_CTX 4096  
 
 
 // Prompt configs
