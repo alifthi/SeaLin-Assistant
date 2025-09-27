@@ -186,7 +186,7 @@ int run_inference(llama_inference* inference, state_type* state) {
             fprintf(stderr, "[Warning] assistant_response buffer full, truncating.\n");
             break;
         }
-        printf("%.*s", n, buf);
+        printf("\033[0;32m%.*s\033[0m", n, buf);
         fflush(stdout);
         batch = llama_batch_get_one(&new_token_id, 1);   
         n_decode++;
