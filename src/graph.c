@@ -18,8 +18,8 @@ int run_graph(state_type *state, llama_inference *inference, output_type *cmd_ou
         if(res)
             return 1;
         char buffer[256];
-        snprintf(buffer, sizeof(buffer), "<|im_start|>system\nHere is the out put of the command:\nExit code: %i\nStd out: %s\nStd Error: %s\n<|im_end|>\n<|im_start|>user\n",
-                                         cmd_out->exit_code, cmd_out->std_out, cmd_out->std_err);
+        snprintf(buffer, sizeof(buffer), "<|im_start|>system\nHere is the out put of the command:\nExit code: %i\nStd out: %s\nStd Error: %s\n<|im_end|>\n<|im_start|>Assistant\n",
+                cmd_out->exit_code, cmd_out->std_out, cmd_out->std_err);
         state->messages = extend_messages(state->messages, buffer);
         run_graph(state, inference, cmd_out);
     }

@@ -175,6 +175,7 @@ int run_inference(llama_inference* inference, state_type* state) {
         
         char buf[128];
         int n = llama_token_to_piece(inference->vocab, new_token_id, buf, sizeof(buf), 0, true);
+        
         if (n < 0) {
             fprintf(stderr, "[Error] Failed to convert token to piece\n");
             return 1;
