@@ -34,7 +34,7 @@ $(TARGET): vendor/llama.cpp/build/bin/libllama.so $(OBJECTS) | $(BUILD_DIR)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 vendor/llama.cpp/build/bin/libllama.so:
-	cd vendor/llama.cpp && mkdir -p build && cd build && cmake .. && make -j4
+	cd vendor/llama.cpp && mkdir -p build && cd build && cmake -DGGML_CUDA=ON .. && make -j4
 
 clean:
 	rm -rf $(BUILD_DIR)

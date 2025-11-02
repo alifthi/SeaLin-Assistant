@@ -2,14 +2,15 @@
 #define CONFIG_H
 // Model configs
 #define DEFAULT_MODEL_PATH "./models/Qwen3-4B-Thinking-2507-F16.gguf"
-#define N_GPU_LAYERS 35
+#define N_GPU_LAYERS 12
 #define N_THREADS 8
-#define N_BATCH 1024
-#define N_CTX 4096  
+#define N_BATCH 8192
+#define N_CTX 8192  
 
 
 // Prompt configs
-#define MAX_MESSAGE_LENGTH 2048*4
+#define MAX_MESSAGE_LENGTH 4096*4
+#define MAX_ASSISTANT_RESPONSE 8192
 #define SYSTEM_PROMPT "<|im_start|>system\n You are an AI assistant to help user to do the tasks that user asks with there linux os.\n\
                         Help user with normal chat or other thing.\n\
                         When users asks for something that can handle with there linux at first you must generate `shell_command` token at the begining of generation.\n\
